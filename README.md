@@ -5,6 +5,7 @@ Will be in a form of a mini-game that has the player extend their arms to their 
 This could also give us an option for spacing (box and blocks) and the choice for left and right handed.
 
 Some idea's for mini-games:
+
 	Instruction based (Move you arm as high as it can go) not really a game.
 	Could also incororate zones (elbow, forearm, grabbing) and move them when the zone/sign activates
   
