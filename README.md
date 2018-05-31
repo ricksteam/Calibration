@@ -17,3 +17,6 @@ So far the positioning and part of the left arm vertical is complete.
 The setup is in a house room with a TV.
 
 ![Alt text](https://github.com/StrokeVR/Calibration/blob/master/Assets/Resources/CaptureVR.PNG)
+
+The confirmation buttons include both Oculus touch Index Triggers as well as the space bar (in case the use can't grip very well the physician would do it for them).
+
