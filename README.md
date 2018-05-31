@@ -16,4 +16,4 @@ Data will be saved in playerPrefs for now so the other games can access them, ho
 So far the positioning and part of the left arm vertical is complete.
 The setup is in a house room with a TV.
 
-![alt text] https://ibb.co/dc8jCd
+![alt text] (https://ibb.co/dc8jCd)
