@@ -16,4 +16,4 @@ Data will be saved in playerPrefs for now so the other games can access them, ho
 So far the positioning and part of the left arm vertical is complete.
 The setup is in a house room with a TV.
 
-![Alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Alt text](https://github.com/StrokeVR/Calibration/blob/master/Assets/Resources/CaptureVR.PNG)
