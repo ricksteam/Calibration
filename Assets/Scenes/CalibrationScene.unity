@@ -841,7 +841,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tv: {fileID: 156207437}
-  cubeParent: {fileID: 4225029722045624, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
+  leftParent: {fileID: 4373951453197588, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
+  rightParent: {fileID: 4019054086880548, guid: 0318695cf6ca3bc4ea8cfd81507bd17d,
+    type: 2}
+  topParent: {fileID: 4391407515444924, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
+  bottomParent: {fileID: 4876860049437724, guid: 0318695cf6ca3bc4ea8cfd81507bd17d,
+    type: 2}
+  forwardParent: {fileID: 4352442869856176, guid: 0318695cf6ca3bc4ea8cfd81507bd17d,
+    type: 2}
 --- !u!114 &610377184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1183,14 +1190,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d4d22b0558f7741860ecb8c62cefb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentStage: 0
   player: {fileID: 1467102614}
   correctPlayerPos: {fileID: 1977902787}
   avatar: {fileID: 1491201140}
   leftHand: {fileID: 1878207973}
   rightHand: {fileID: 610377182}
   cubeHolder: {fileID: 1551719784960988, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
+  sphere: {fileID: 4828329804621758, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
   leftCubeSpot: {fileID: 845621317}
   rightCubeSpot: {fileID: 1641861919}
+  cubes: []
   tv: {fileID: 156207437}
 --- !u!1 &845621316
 GameObject:
@@ -1214,7 +1224,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 845621316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.14984131, y: 0.8039478, z: 0.1}
+  m_LocalPosition: {x: -0.14984131, y: 1.047, z: 0.138}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2525,7 +2535,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1641861918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.069, y: 0.8039478, z: 0.1}
+  m_LocalPosition: {x: 0.069, y: 1.047, z: 0.138}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2921,7 +2931,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tv: {fileID: 156207437}
-  cubeParent: {fileID: 4225029722045624, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
+  leftParent: {fileID: 4373951453197588, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
+  rightParent: {fileID: 4019054086880548, guid: 0318695cf6ca3bc4ea8cfd81507bd17d,
+    type: 2}
+  topParent: {fileID: 4391407515444924, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
+  bottomParent: {fileID: 4876860049437724, guid: 0318695cf6ca3bc4ea8cfd81507bd17d,
+    type: 2}
+  forwardParent: {fileID: 4352442869856176, guid: 0318695cf6ca3bc4ea8cfd81507bd17d,
+    type: 2}
 --- !u!1 &1966556184
 GameObject:
   m_ObjectHideFlags: 0
