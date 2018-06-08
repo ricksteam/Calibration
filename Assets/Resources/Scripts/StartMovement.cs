@@ -20,22 +20,24 @@ public class StartMovement : MonoBehaviour {
         if (col.gameObject.name.Equals("hand_left"))
         {
             tv.text = "Now push the little boxes away from your LEFT hand.";
-            cubes = GameObject.FindGameObjectsWithTag("Moveable");
-            foreach (GameObject cube in cubes)
-            {
-                cube.GetComponent<BoxCollider>().enabled = true;
-            }
-            room.GetComponent<Calibration>().currentStage++;
+            //cubes = GameObject.FindGameObjectsWithTag("Moveable");
+			foreach (GameObject cube in cubes)
+			{
+				cube.gameObject.SetActive (true);
+				cube.GetComponentInChildren<BoxCollider> ().enabled = true;
+			}
+			room.GetComponent<Calibration> ().leftContact = true;
         }
         else if (col.gameObject.name.Equals("hand_right"))
         {
             tv.text = "Now push the little boxes away from your RIGHT hand.";
-            cubes = GameObject.FindGameObjectsWithTag("Moveable");
-            foreach (GameObject cube in cubes)
-            {
-                cube.GetComponent<BoxCollider>().enabled = true;
-            }
-            room.GetComponent<Calibration>().currentStage++;
+            //cubes = GameObject.FindGameObjectsWithTag("Moveable");
+			foreach (GameObject cube in cubes)
+			{
+				cube.gameObject.SetActive (true);
+				cube.GetComponentInChildren<BoxCollider> ().enabled = true;
+			}
+			room.GetComponent<Calibration> ().rightContact = true;
         }
          
     }

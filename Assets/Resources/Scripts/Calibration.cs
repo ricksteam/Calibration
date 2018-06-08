@@ -20,6 +20,8 @@ public class Calibration : MonoBehaviour {
     public Transform rightCubeSpot;
 
     public GameObject[] cubes;
+	public bool leftContact = false;
+	public bool rightContact = false;
 
     public Text tv;
 	// Use this for initialization
@@ -36,27 +38,30 @@ public class Calibration : MonoBehaviour {
         /*if (Vector3.Distance(leftHand.position, sphere.position) <= 0.3 && currentStage == 1)
         {
             tv.text = "Now push the little boxes away from your LEFT hand.";
-            cubes = GameObject.FindGameObjectsWithTag("Moveable");
+            //cubes = GameObject.FindGameObjectsWithTag("Moveable");
             foreach (GameObject cube in cubes)
             {
-                cube.GetComponent<BoxCollider>().enabled = true;
+				cube.gameObject.SetActive (true);
+				cube.GetComponentInChildren<BoxCollider> ().enabled = true;
+
             }
             currentStage++;
         }
         if (Vector3.Distance(rightHand.position, sphere.position) <= 0.5 && currentStage == 3)
         {
             tv.text = "Now push the little boxes away from your RIGHT hand.";
-            cubes = GameObject.FindGameObjectsWithTag("Moveable");
+            //cubes = GameObject.FindGameObjectsWithTag("Moveable");
             foreach (GameObject cube in cubes)
             {
-                cube.GetComponent<BoxCollider>().enabled = true;
+				cube.gameObject.SetActive (true);
+				cube.GetComponentInChildren<BoxCollider> ().enabled = true; 
             }
             currentStage++;
         }*/
         if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger) || OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) || Input.GetKeyUp(KeyCode.Space))
         {
-            Debug.Log("left: " + Vector3.Distance(leftHand.position, sphere.position));
-            Debug.Log("Right: "  + Vector3.Distance(rightHand.position, sphere.position));
+			Debug.Log(currentStage);
+
             switch (currentStage)
             {
                 case 0:
@@ -65,35 +70,42 @@ public class Calibration : MonoBehaviour {
                     {
                         tv.text = "Next we will check the bounds for your left hand. Start by putting your LEFT hand inside the box.";
                         Instantiate(cubeHolder, leftCubeSpot.transform.position, Quaternion.identity);
-                        cubes = GameObject.FindGameObjectsWithTag("Moveable");
+                        //cubes = GameObject.FindGameObjectsWithTag("Moveable");
                         foreach (GameObject cube in cubes)
                         {
-                            cube.GetComponent<BoxCollider>().enabled = false;
+							cube.gameObject.SetActive (false);
+							cube.GetComponentInChildren<BoxCollider> ().enabled = false;
                         }
                         rightHand.gameObject.SetActive(false);
-                        currentStage++;
+						Invoke ("InvokeStage", 1);
                     }
 
                     break;
 
-                case 2:
-                   
+			case 1:
+				if (leftContact == false)
+					return;
+				
                     tv.text = "OK, next we are going to repeat that with the other hand. Place your RIGHT hand in the box.";
                     leftHand.GetComponent<PushBlock>().savePositions();
 
                     GameObject prev = GameObject.Find("CubeHolder(Clone)");
                     Destroy(prev);
                     Instantiate(cubeHolder, rightCubeSpot.transform.position, Quaternion.identity);
-                    cubes = GameObject.FindGameObjectsWithTag("Moveable");
+                    //cubes = GameObject.FindGameObjectsWithTag("Moveable");
                     foreach (GameObject cube in cubes)
                     {
-                        cube.GetComponent<BoxCollider>().enabled = false;
+					cube.gameObject.SetActive (false);
+						cube.GetComponentInChildren<BoxCollider> ().enabled = false;
                     }
                     rightHand.gameObject.SetActive(true);
                     leftHand.gameObject.SetActive(false);
-                    currentStage++;
+					Invoke ("InvokeStage", 1);
                     break;
-                case 4:
+			case 2:
+				if (rightContact == false)
+					return;
+				
                     tv.text = "Done for now!";
                     rightHand.GetComponent<PushBlock>().savePositions();
                     GameObject prev1 = GameObject.Find("CubeHolder(Clone)");
@@ -115,5 +127,10 @@ public class Calibration : MonoBehaviour {
 		float distanceToTarget = vectorToTarget.magnitude;
 		//Debug.Log (distanceToTarget);
 		return distanceToTarget;
+	}
+		 
+	public void InvokeStage()
+	{
+		currentStage++;
 	}
 }
