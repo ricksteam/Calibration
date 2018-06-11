@@ -35,29 +35,7 @@ public class Calibration : MonoBehaviour {
     
 	void Update()
 	{
-        /*if (Vector3.Distance(leftHand.position, sphere.position) <= 0.3 && currentStage == 1)
-        {
-            tv.text = "Now push the little boxes away from your LEFT hand.";
-            //cubes = GameObject.FindGameObjectsWithTag("Moveable");
-            foreach (GameObject cube in cubes)
-            {
-				cube.gameObject.SetActive (true);
-				cube.GetComponentInChildren<BoxCollider> ().enabled = true;
-
-            }
-            currentStage++;
-        }
-        if (Vector3.Distance(rightHand.position, sphere.position) <= 0.5 && currentStage == 3)
-        {
-            tv.text = "Now push the little boxes away from your RIGHT hand.";
-            //cubes = GameObject.FindGameObjectsWithTag("Moveable");
-            foreach (GameObject cube in cubes)
-            {
-				cube.gameObject.SetActive (true);
-				cube.GetComponentInChildren<BoxCollider> ().enabled = true; 
-            }
-            currentStage++;
-        }*/
+       
         if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger) || OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) || Input.GetKeyUp(KeyCode.Space))
         {
 			Debug.Log(currentStage);

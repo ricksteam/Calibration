@@ -852,6 +852,7 @@ MonoBehaviour:
     type: 2}
   forwardParent: {fileID: 4352442869856176, guid: 0318695cf6ca3bc4ea8cfd81507bd17d,
     type: 2}
+  leftCube: {fileID: 0}
 --- !u!114 &610377184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,6 +1211,8 @@ MonoBehaviour:
   - {fileID: 1937788395839962, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
   - {fileID: 1312698135863550, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
   - {fileID: 1672198205224316, guid: 0318695cf6ca3bc4ea8cfd81507bd17d, type: 2}
+  leftContact: 0
+  rightContact: 0
   tv: {fileID: 156207437}
 --- !u!1 &845621316
 GameObject:
@@ -2966,6 +2969,7 @@ MonoBehaviour:
     type: 2}
   forwardParent: {fileID: 4352442869856176, guid: 0318695cf6ca3bc4ea8cfd81507bd17d,
     type: 2}
+  leftCube: {fileID: 0}
 --- !u!1 &1966556184
 GameObject:
   m_ObjectHideFlags: 0

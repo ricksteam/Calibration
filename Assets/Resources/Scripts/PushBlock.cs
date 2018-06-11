@@ -17,60 +17,36 @@ public class PushBlock : MonoBehaviour {
     public Transform topParent;
     public Transform bottomParent;
     public Transform forwardParent;
+	 
 
-    void Start()
-    {
 
+	Calibration c;
+	void Start()
+	{
+		c = GameObject.Find ("Room").GetComponent<Calibration> ();
+
+	}
+    void Update()
+    { 
+
+		if (c.leftContact) 
+			savePositions ();
 
     }
-    /*private void OnCollisionExit(Collision col)
-    {
-
-        if (col.gameObject.name.Equals("Left"))
-        {
-            float dis = getDistance("left", col.transform);
-            Debug.Log("Left: " + dis);
-            left = normalize(dis, 0, -0.13f); //0.07
-
-        }
-        else if (col.gameObject.name.Equals("Right"))
-        {
-            float dis = getDistance("right", col.transform);
-            Debug.Log("Right: " + dis);
-            right = normalize(dis, 0, 0.81f); //-0.5
-        }
-        else if (col.gameObject.name.Equals("Top"))
-        {
-            float dis = getDistance("top", col.transform);
-            Debug.Log("Top: " + dis);
-            up = normalize(dis, 0, 0.6f);//-0.6
-        }
-        else if (col.gameObject.name.Equals("Bottom"))
-        {
-            float dis = getDistance("bottom", col.transform);
-            Debug.Log("Bottom: " + dis);
-            down = normalize(dis, 0, -0.36f); //-0.6
-        }
-        else if (col.gameObject.name.Equals("Forward"))
-        {
-            float dis = getDistance("forward", col.transform);
-            Debug.Log("Forward: " + dis);
-            forward = normalize(dis, 0, 0.4f); //-0.8
-        }
-        tv.text = "Left: " + left.ToString("F2") + "\nRight: " + right.ToString("F2") + "\nTop: " + up.ToString("F2") + "\nDown: " + down.ToString("F2") + "\nForward: " + forward.ToString("F2") + "\n<continue>";
-        PlayerPrefs.SetFloat("Left", left);
-        PlayerPrefs.SetFloat("Right", right);
-        PlayerPrefs.SetFloat("Up", up);
-        PlayerPrefs.SetFloat("Down", down);
-        PlayerPrefs.SetFloat("Forward", forward);
-
-    }*/
-
+  
     public void savePositions()
     {
-        Transform leftObj = leftParent.GetChild(0);
-        left = getDistance("left", leftObj);
-        Debug.Log(left);
+		float maxLeft = 0.55f;
+
+		//Debug.Log (leftParent.GetChild (0).gameObject.name);
+		left = getDistance ("left", GameObject.Find("Left").transform);
+		Debug.Log (left + "/" + maxLeft);
+		tv.text = "Left: " + (left / maxLeft) * 100;
+		/*right = getDistance ("right", rightParent.GetChild (0));
+		up = getDistance ("top", topParent.GetChild (0));
+		down = getDistance ("bottom", bottomParent.GetChild (0));
+		forward = getDistance ("forward", forwardParent.GetChild (0));
+		*/
         
     }
     private float getDistance(string dir, Transform collision)
@@ -108,10 +84,6 @@ public class PushBlock : MonoBehaviour {
         return vect.magnitude;
     }
     
-   private float normalize(float value, float min, float oldMax)
-    {
-        return (((value - min) * (1 - 0)) / (oldMax - min)) + 0;
-    }
-   
+
 
 }
