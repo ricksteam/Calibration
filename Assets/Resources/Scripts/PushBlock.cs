@@ -11,12 +11,17 @@ public class PushBlock : MonoBehaviour {
     private float down = 0f;
     private float forward = 0f;
 
+    private float xMax = 0.64f;
+    private float xMin = -0.64f;
+    private bool getCubes = true;
+
     public Text tv;
-    public Transform leftParent;
-    public Transform rightParent;
-    public Transform topParent;
-    public Transform bottomParent;
-    public Transform forwardParent;
+     Transform leftCube;
+     Transform rightCube;
+     Transform topCube;
+     Transform bottomCube;
+     Transform forwardCube;
+     Transform origin;
 	 
 
 
@@ -24,66 +29,54 @@ public class PushBlock : MonoBehaviour {
 	void Start()
 	{
 		c = GameObject.Find ("Room").GetComponent<Calibration> ();
+        
 
 	}
     void Update()
     { 
-
-		if (c.leftContact) 
-			savePositions ();
+        
+		if (c.leftContact)
+        {
+            if (getCubes)
+            {
+                leftCube = GameObject.Find("Left").transform;
+                rightCube = GameObject.Find("Right").transform;
+                origin = GameObject.Find("Sphere").transform;
+                getCubes = false;
+            }
+            
+            savePositions();
+        }
+           
 
     }
   
+    
     public void savePositions()
     {
-		float maxLeft = 0.55f;
+        //Left (x)
+        
+        
+        Debug.Log(rightCube.position.x);
+        tv.text = "Left: " + scaleX(leftCube.position.x + 0.1f).ToString("f1") + "\nRight: " + scaleX(rightCube.position.x + 0.2f).ToString("f1") + "\n";
 
-		//Debug.Log (leftParent.GetChild (0).gameObject.name);
-		left = getDistance ("left", GameObject.Find("Left").transform);
-		Debug.Log (left + "/" + maxLeft);
-		tv.text = "Left: " + (left / maxLeft) * 100;
-		/*right = getDistance ("right", rightParent.GetChild (0));
-		up = getDistance ("top", topParent.GetChild (0));
-		down = getDistance ("bottom", bottomParent.GetChild (0));
-		forward = getDistance ("forward", forwardParent.GetChild (0));
-		*/
-        
     }
-    private float getDistance(string dir, Transform collision)
+
+    float scaleX(float x)
     {
-        Vector3 vect = new Vector3(0, 0, 0);
-        
-        switch (dir)
+        if (x > origin.position.x)
         {
-            case "left":
-                vect = leftParent.position - collision.position;
-                vect.z = 0;
-                vect.y = 0;
-                break;
-            case "right":
-                vect = rightParent.position - collision.position;
-                vect.z = 0;
-                vect.y = 0;
-                break;
-            case "bottom":
-                vect = bottomParent.position - collision.position;
-                vect.z = 0;
-                vect.x = 0;
-                break;
-            case "forward":
-                vect = forwardParent.position - collision.position;
-                vect.x = 0;
-                vect.y = 0;
-                break;
-            case "top":
-                vect = topParent.position - collision.position;
-                vect.z = 0;
-                vect.x = 0;
-                break;
+            
+            return ((x - origin.position.x) / (xMax - origin.position.x));
         }
-        return vect.magnitude;
+        else if (x < origin.position.x)
+        {
+            
+            return (((x - xMin) / (xMax - xMin)) * 2) - 1;
+        }
+        return -555555;
+        
     }
-    
 
 
 }
