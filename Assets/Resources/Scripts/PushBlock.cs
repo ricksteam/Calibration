@@ -11,8 +11,12 @@ public class PushBlock : MonoBehaviour {
     private float down = 0f;
     private float forward = 0f;
 
-    private float xMax = 0.64f;
-    private float xMin = -0.64f;
+    private float xMax = 0.61f;
+    private float xMin = -0.58f;
+    private float yMax = 0.53f;
+    private float yMin = -0.72f;
+    private float zMin = -0.4f;
+    private float zMax = 0.45f;
     private bool getCubes = true;
 
     public Text tv;
@@ -21,6 +25,7 @@ public class PushBlock : MonoBehaviour {
      Transform topCube;
      Transform bottomCube;
      Transform forwardCube;
+    Transform backCube;
      Transform origin;
 	 
 
@@ -39,8 +44,12 @@ public class PushBlock : MonoBehaviour {
         {
             if (getCubes)
             {
-                leftCube = GameObject.Find("Left").transform;
-                rightCube = GameObject.Find("Right").transform;
+                leftCube = GameObject.FindGameObjectWithTag("Left").transform;
+                rightCube = GameObject.FindGameObjectWithTag("Right").transform;
+                topCube = GameObject.FindGameObjectWithTag("Top").transform;
+                bottomCube = GameObject.FindGameObjectWithTag("Bottom").transform;
+                forwardCube = GameObject.FindGameObjectWithTag("Forward").transform;
+                backCube = GameObject.FindGameObjectWithTag("Back").transform;
                 origin = GameObject.Find("Sphere").transform;
                 getCubes = false;
             }
@@ -55,10 +64,14 @@ public class PushBlock : MonoBehaviour {
     public void savePositions()
     {
         //Left (x)
-        
-        
-        Debug.Log(rightCube.position.x);
-        tv.text = "Left: " + scaleX(leftCube.position.x + 0.1f).ToString("f1") + "\nRight: " + scaleX(rightCube.position.x + 0.2f).ToString("f1") + "\n";
+        //Debug.Log(forwardCube.localPosition.z + "; " + backCube.localPosition.z);
+
+        //Debug.Log("Top: " + topCube.localPosition.y + "; Bottom: " + bottomCube.localPosition.y + "; Left: " + leftCube.localPosition.x + "; Right: " + rightCube.localPosition.x);
+        tv.text = "Left: " + (scaleX(leftCube.localPosition.x) * 100).ToString("f0") + "%" + "\nRight: " + (scaleX(rightCube.localPosition.x) * 100).ToString("f0") + "%" + "\n" +
+            "Top: " + (scaleY(topCube.localPosition.y) * 100).ToString("f0") + "%" + "\nBottom: " + (scaleY(bottomCube.localPosition.y) * 100).ToString("f0") + "%" + "\nForward: " + (scaleZ(forwardCube.localPosition.z) * 100).ToString("f0") + "%" +
+            "\nBack: " + (scaleZ(backCube.localPosition.z) * 100).ToString("f0") + "%";
+
+    
 
     }
 
@@ -76,6 +89,38 @@ public class PushBlock : MonoBehaviour {
         }
         return -555555;
         
+    }
+    float scaleY(float y)
+    {
+        
+        if (y > origin.position.y)
+        {
+            //Debug.Log("Top: " + y);
+            return ((y - origin.position.y) / (yMax - origin.position.y));
+        }
+        else if (y < origin.position.y)
+        {
+            //Debug.Log("Bottom: " + y);
+            return (((y - yMin) / (yMax - yMin)) * 2) - 1;
+        }
+        return -555555;
+
+    }
+    float scaleZ(float z)
+    {
+
+        if (z > origin.position.z)
+        {
+            //Debug.Log("Top: " + y);
+            return ((z - origin.position.z) / (zMax - origin.position.z));
+        } 
+        else if (z < origin.position.z)
+        {
+            //Debug.Log("Bottom: " + y);
+            return (((z - zMin) / (zMax - zMin)) * 2) - 1;
+        }
+        return -555555;
+
     }
 
 
