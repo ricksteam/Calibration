@@ -24,7 +24,7 @@ public class StartMovement : MonoBehaviour {
 			foreach (GameObject cube in cubes)
 			{
 				cube.gameObject.SetActive (true);
-				cube.GetComponentInChildren<BoxCollider> ().enabled = true;
+				cube.GetComponent<BoxCollider> ().enabled = true;
 			}
 			room.GetComponent<Calibration> ().leftContact = true;
         }
@@ -35,7 +35,7 @@ public class StartMovement : MonoBehaviour {
 			foreach (GameObject cube in cubes)
 			{
 				cube.gameObject.SetActive (true);
-				cube.GetComponentInChildren<BoxCollider> ().enabled = true;
+				cube.GetComponent<BoxCollider> ().enabled = true;
 			}
 			room.GetComponent<Calibration> ().rightContact = true;
         }

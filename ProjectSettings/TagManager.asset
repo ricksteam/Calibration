@@ -6,6 +6,12 @@ TagManager:
   tags:
   - display
   - Moveable
+  - Left
+  - Right
+  - Top
+  - Bottom
+  - Back
+  - Forward
   layers:
   - Default
   - TransparentFX

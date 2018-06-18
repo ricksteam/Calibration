@@ -52,8 +52,9 @@ public class Calibration : MonoBehaviour {
                         foreach (GameObject cube in cubes)
                         {
 							cube.gameObject.SetActive (false);
-							cube.GetComponentInChildren<BoxCollider> ().enabled = false;
+							cube.GetComponent<BoxCollider> ().enabled = false;
                         }
+                        //Debug.Log(getDistance(cubes[0].transform, cubes[0].transform.parent.transform));
                         rightHand.gameObject.SetActive(false);
 						Invoke ("InvokeStage", 1);
                     }
@@ -73,8 +74,8 @@ public class Calibration : MonoBehaviour {
                     //cubes = GameObject.FindGameObjectsWithTag("Moveable");
                     foreach (GameObject cube in cubes)
                     {
-					cube.gameObject.SetActive (false);
-						cube.GetComponentInChildren<BoxCollider> ().enabled = false;
+					    cube.gameObject.SetActive (false);
+						cube.GetComponent<BoxCollider> ().enabled = false;
                     }
                     rightHand.gameObject.SetActive(true);
                     leftHand.gameObject.SetActive(false);

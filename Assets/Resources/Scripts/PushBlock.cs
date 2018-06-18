@@ -11,12 +11,22 @@ public class PushBlock : MonoBehaviour {
     private float down = 0f;
     private float forward = 0f;
 
+    private float xMax = 0.61f;
+    private float xMin = -0.58f;
+    private float yMax = 0.53f;
+    private float yMin = -0.72f;
+    private float zMin = -0.4f;
+    private float zMax = 0.45f;
+    private bool getCubes = true;
+
     public Text tv;
-    public Transform leftParent;
-    public Transform rightParent;
-    public Transform topParent;
-    public Transform bottomParent;
-    public Transform forwardParent;
+     Transform leftCube;
+     Transform rightCube;
+     Transform topCube;
+     Transform bottomCube;
+     Transform forwardCube;
+    Transform backCube;
+     Transform origin;
 	 
 
 
@@ -24,66 +34,94 @@ public class PushBlock : MonoBehaviour {
 	void Start()
 	{
 		c = GameObject.Find ("Room").GetComponent<Calibration> ();
+        
 
 	}
     void Update()
     { 
-
-		if (c.leftContact) 
-			savePositions ();
+        
+		if (c.leftContact)
+        {
+            if (getCubes)
+            {
+                leftCube = GameObject.FindGameObjectWithTag("Left").transform;
+                rightCube = GameObject.FindGameObjectWithTag("Right").transform;
+                topCube = GameObject.FindGameObjectWithTag("Top").transform;
+                bottomCube = GameObject.FindGameObjectWithTag("Bottom").transform;
+                forwardCube = GameObject.FindGameObjectWithTag("Forward").transform;
+                backCube = GameObject.FindGameObjectWithTag("Back").transform;
+                origin = GameObject.Find("Sphere").transform;
+                getCubes = false;
+            }
+            
+            savePositions();
+        }
+           
 
     }
   
+    
     public void savePositions()
     {
-		float maxLeft = 0.55f;
+        //Left (x)
+        //Debug.Log(forwardCube.localPosition.z + "; " + backCube.localPosition.z);
 
-		//Debug.Log (leftParent.GetChild (0).gameObject.name);
-		left = getDistance ("left", GameObject.Find("Left").transform);
-		Debug.Log (left + "/" + maxLeft);
-		tv.text = "Left: " + (left / maxLeft) * 100;
-		/*right = getDistance ("right", rightParent.GetChild (0));
-		up = getDistance ("top", topParent.GetChild (0));
-		down = getDistance ("bottom", bottomParent.GetChild (0));
-		forward = getDistance ("forward", forwardParent.GetChild (0));
-		*/
-        
-    }
-    private float getDistance(string dir, Transform collision)
-    {
-        Vector3 vect = new Vector3(0, 0, 0);
-        
-        switch (dir)
-        {
-            case "left":
-                vect = leftParent.position - collision.position;
-                vect.z = 0;
-                vect.y = 0;
-                break;
-            case "right":
-                vect = rightParent.position - collision.position;
-                vect.z = 0;
-                vect.y = 0;
-                break;
-            case "bottom":
-                vect = bottomParent.position - collision.position;
-                vect.z = 0;
-                vect.x = 0;
-                break;
-            case "forward":
-                vect = forwardParent.position - collision.position;
-                vect.x = 0;
-                vect.y = 0;
-                break;
-            case "top":
-                vect = topParent.position - collision.position;
-                vect.z = 0;
-                vect.x = 0;
-                break;
-        }
-        return vect.magnitude;
-    }
+        //Debug.Log("Top: " + topCube.localPosition.y + "; Bottom: " + bottomCube.localPosition.y + "; Left: " + leftCube.localPosition.x + "; Right: " + rightCube.localPosition.x);
+        tv.text = "Left: " + (scaleX(leftCube.localPosition.x) * 100).ToString("f0") + "%" + "\nRight: " + (scaleX(rightCube.localPosition.x) * 100).ToString("f0") + "%" + "\n" +
+            "Top: " + (scaleY(topCube.localPosition.y) * 100).ToString("f0") + "%" + "\nBottom: " + (scaleY(bottomCube.localPosition.y) * 100).ToString("f0") + "%" + "\nForward: " + (scaleZ(forwardCube.localPosition.z) * 100).ToString("f0") + "%" +
+            "\nBack: " + (scaleZ(backCube.localPosition.z) * 100).ToString("f0") + "%";
+
     
+
+    }
+
+    float scaleX(float x)
+    {
+        if (x > origin.position.x)
+        {
+            
+            return ((x - origin.position.x) / (xMax - origin.position.x));
+        }
+        else if (x < origin.position.x)
+        {
+            
+            return (((x - xMin) / (xMax - xMin)) * 2) - 1;
+        }
+        return -555555;
+        
+    }
+    float scaleY(float y)
+    {
+        
+        if (y > origin.position.y)
+        {
+            //Debug.Log("Top: " + y);
+            return ((y - origin.position.y) / (yMax - origin.position.y));
+        }
+        else if (y < origin.position.y)
+        {
+            //Debug.Log("Bottom: " + y);
+            return (((y - yMin) / (yMax - yMin)) * 2) - 1;
+        }
+        return -555555;
+
+    }
+    float scaleZ(float z)
+    {
+
+        if (z > origin.position.z)
+        {
+            //Debug.Log("Top: " + y);
+            return ((z - origin.position.z) / (zMax - origin.position.z));
+        } 
+        else if (z < origin.position.z)
+        {
+            //Debug.Log("Bottom: " + y);
+            return (((z - zMin) / (zMax - zMin)) * 2) - 1;
+        }
+        return -555555;
+
+    }
 
 
 }
