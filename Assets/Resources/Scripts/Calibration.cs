@@ -29,7 +29,7 @@ public class Calibration : MonoBehaviour {
 	{
 		tv.text = "Please stand on the blue square on the ground. (Press the trigger to <continue>)";
         
-        //cubeHolder.gameObject.SetActive(false);
+        
     }
   	
     
@@ -43,18 +43,19 @@ public class Calibration : MonoBehaviour {
             switch (currentStage)
             {
                 case 0:
-                    //Debug.Log (Vector3.Distance (player.transform.position, correctPlayerPos.position));
+                    
                     if (getDistance(player.transform, correctPlayerPos) <= 0.2 && getDistance(player.transform, correctPlayerPos) >= -0.2)
                     {
+                        
                         tv.text = "Next we will check the bounds for your left hand. Start by putting your LEFT hand inside the box.";
                         Instantiate(cubeHolder, leftCubeSpot.transform.position, Quaternion.identity);
-                        //cubes = GameObject.FindGameObjectsWithTag("Moveable");
+                       
                         foreach (GameObject cube in cubes)
                         {
 							cube.gameObject.SetActive (false);
 							cube.GetComponent<BoxCollider> ().enabled = false;
                         }
-                        //Debug.Log(getDistance(cubes[0].transform, cubes[0].transform.parent.transform));
+                        
                         rightHand.gameObject.SetActive(false);
 						Invoke ("InvokeStage", 1);
                     }
@@ -71,7 +72,7 @@ public class Calibration : MonoBehaviour {
                     GameObject prev = GameObject.Find("CubeHolder(Clone)");
                     Destroy(prev);
                     Instantiate(cubeHolder, rightCubeSpot.transform.position, Quaternion.identity);
-                    //cubes = GameObject.FindGameObjectsWithTag("Moveable");
+                   
                     foreach (GameObject cube in cubes)
                     {
 					    cube.gameObject.SetActive (false);
@@ -104,7 +105,7 @@ public class Calibration : MonoBehaviour {
 		Vector3 vectorToTarget = x1.position - x2.position;
 		vectorToTarget.y = 0;
 		float distanceToTarget = vectorToTarget.magnitude;
-		//Debug.Log (distanceToTarget);
+		
 		return distanceToTarget;
 	}
 		 
