@@ -20,7 +20,7 @@ public class StartMovement : MonoBehaviour {
         if (col.gameObject.name.Equals("hand_left"))
         {
             tv.text = "Now push the little boxes away from your LEFT hand.";
-            //cubes = GameObject.FindGameObjectsWithTag("Moveable");
+
 			foreach (GameObject cube in cubes)
 			{
 				cube.gameObject.SetActive (true);
@@ -31,7 +31,7 @@ public class StartMovement : MonoBehaviour {
         else if (col.gameObject.name.Equals("hand_right"))
         {
             tv.text = "Now push the little boxes away from your RIGHT hand.";
-            //cubes = GameObject.FindGameObjectsWithTag("Moveable");
+
 			foreach (GameObject cube in cubes)
 			{
 				cube.gameObject.SetActive (true);

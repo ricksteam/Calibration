@@ -10,6 +10,7 @@ public class PushBlock : MonoBehaviour {
     private float up = 0f;
     private float down = 0f;
     private float forward = 0f;
+    private float back = 0f;
 
     private float xMax = 0.61f;
     private float xMin = -0.58f;
@@ -40,7 +41,7 @@ public class PushBlock : MonoBehaviour {
     void Update()
     { 
         
-		if (c.leftContact)
+		if (c.leftContact || c.rightContact)
         {
             if (getCubes)
             {
@@ -63,13 +64,39 @@ public class PushBlock : MonoBehaviour {
     
     public void savePositions()
     {
-        //Left (x)
-        //Debug.Log(forwardCube.localPosition.z + "; " + backCube.localPosition.z);
+        
 
-        //Debug.Log("Top: " + topCube.localPosition.y + "; Bottom: " + bottomCube.localPosition.y + "; Left: " + leftCube.localPosition.x + "; Right: " + rightCube.localPosition.x);
-        tv.text = "Left: " + (scaleX(leftCube.localPosition.x) * 100).ToString("f0") + "%" + "\nRight: " + (scaleX(rightCube.localPosition.x) * 100).ToString("f0") + "%" + "\n" +
-            "Top: " + (scaleY(topCube.localPosition.y) * 100).ToString("f0") + "%" + "\nBottom: " + (scaleY(bottomCube.localPosition.y) * 100).ToString("f0") + "%" + "\nForward: " + (scaleZ(forwardCube.localPosition.z) * 100).ToString("f0") + "%" +
-            "\nBack: " + (scaleZ(backCube.localPosition.z) * 100).ToString("f0") + "%";
+        left = (scaleX(leftCube.localPosition.x) * 100);
+        right = (scaleX(rightCube.localPosition.x) * 100);
+        up = (scaleY(topCube.localPosition.y) * 100);
+        down = (scaleY(bottomCube.localPosition.y) * 100);
+        forward = (scaleZ(forwardCube.localPosition.z) * 100);
+        back = (scaleZ(backCube.localPosition.z) * 100);
+
+        if (c.leftContact)
+        {
+            PlayerPrefs.SetFloat("LLeft", left);
+            PlayerPrefs.SetFloat("LRight", right);
+            PlayerPrefs.SetFloat("LTop", up);
+            PlayerPrefs.SetFloat("LBottom", down);
+            PlayerPrefs.SetFloat("LForward", forward);
+            PlayerPrefs.SetFloat("LBack", back);
+
+        }
+        else if (c.rightContact)
+        {
+            PlayerPrefs.SetFloat("RLeft", left);
+            PlayerPrefs.SetFloat("RRight", right);
+            PlayerPrefs.SetFloat("RTop", up);
+            PlayerPrefs.SetFloat("RBottom", down);
+            PlayerPrefs.SetFloat("RForward", forward);
+            PlayerPrefs.SetFloat("RBack", back);
+
+        }
+
+        tv.text = "Left: " + left.ToString("f0") + "%" + "\nRight: " + right.ToString("f0") + "%" + "\n" +
+            "Top: " + up.ToString("f0") + "%" + "\nBottom: " + down.ToString("f0") + "%" + "\nForward: " + forward.ToString("f0") + "%" +
+            "\nBack: " + back.ToString("f0") + "%";
 
     
 
@@ -95,12 +122,12 @@ public class PushBlock : MonoBehaviour {
         
         if (y > origin.position.y)
         {
-            //Debug.Log("Top: " + y);
+
             return ((y - origin.position.y) / (yMax - origin.position.y));
         }
         else if (y < origin.position.y)
         {
-            //Debug.Log("Bottom: " + y);
+
             return (((y - yMin) / (yMax - yMin)) * 2) - 1;
         }
         return -555555;
@@ -111,12 +138,10 @@ public class PushBlock : MonoBehaviour {
 
         if (z > origin.position.z)
         {
-            //Debug.Log("Top: " + y);
             return ((z - origin.position.z) / (zMax - origin.position.z));
         } 
         else if (z < origin.position.z)
         {
-            //Debug.Log("Bottom: " + y);
             return (((z - zMin) / (zMax - zMin)) * 2) - 1;
         }
         return -555555;
