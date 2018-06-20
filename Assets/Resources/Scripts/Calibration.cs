@@ -8,11 +8,14 @@ public class Calibration : MonoBehaviour {
     public int currentStage = 0; //0 - pos, 1 - leftVerticalMin, 2 - leftVerticalMax
 	public GameObject player;
 	public Transform correctPlayerPos;
-
+    public GameObject playerController;
     public Transform avatar;
     public Transform leftHand;
     public Transform rightHand;
 
+
+    public float heightInFeet = 6.0f;
+    public bool sitting = false;
 
     public GameObject cubeHolder;
     public Transform sphere;
@@ -28,8 +31,13 @@ public class Calibration : MonoBehaviour {
 	void Start () 
 	{
 		tv.text = "Please stand on the blue square on the ground. (Press the trigger to <continue>)";
-        
-        
+        float meters = getMeters(heightInFeet);
+        if (sitting)
+        {
+            meters /= 1.3f;
+        }
+        Debug.Log(playerController.transform.position.y + "; " + meters);
+        playerController.transform.position = new Vector3(playerController.transform.position.x, meters, playerController.transform.position.z);
     }
   	
     
@@ -47,9 +55,11 @@ public class Calibration : MonoBehaviour {
                     if (getDistance(player.transform, correctPlayerPos) <= 0.2 && getDistance(player.transform, correctPlayerPos) >= -0.2)
                     {
                         
+                        
+
                         tv.text = "Next we will check the bounds for your left hand. Start by putting your LEFT hand inside the box.";
                         Instantiate(cubeHolder, leftCubeSpot.transform.position, Quaternion.identity);
-                       
+                        
                         foreach (GameObject cube in cubes)
                         {
 							cube.gameObject.SetActive (false);
@@ -99,6 +109,10 @@ public class Calibration : MonoBehaviour {
        
     }
 
+    float getMeters(float feet)
+    {
+        return feet * 0.3048f;
+    }
 
 	float getDistance(Transform x1, Transform x2)
 	{
