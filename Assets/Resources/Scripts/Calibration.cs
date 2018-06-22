@@ -15,7 +15,6 @@ public class Calibration : MonoBehaviour {
 
 
     public float heightInFeet = 6.0f;
-    public bool sitting = false;
 
     public GameObject cubeHolder;
     public Transform sphere;
@@ -32,10 +31,6 @@ public class Calibration : MonoBehaviour {
 	{
 		tv.text = "Please stand on the blue square on the ground. (Press the trigger to <continue>)";
         float meters = getMeters(heightInFeet);
-        if (sitting)
-        {
-            meters /= 1.3f;
-        }
         Debug.Log(playerController.transform.position.y + "; " + meters);
         playerController.transform.position = new Vector3(playerController.transform.position.x, meters, playerController.transform.position.z);
     }
@@ -44,7 +39,8 @@ public class Calibration : MonoBehaviour {
 	void Update()
 	{
        
-        if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger) || OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) || Input.GetKeyUp(KeyCode.Space))
+        //if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger) || OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) || Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp (KeyCode.Space)) //Removed oculus touch buttons...could add gestures with kinect
         {
 			Debug.Log(currentStage);
 
@@ -102,13 +98,27 @@ public class Calibration : MonoBehaviour {
                     Destroy(prev1);
                     rightHand.gameObject.SetActive(true);
                     leftHand.gameObject.SetActive(true);
+                    StartCoroutine(ExitGame());
                     break;
             }
             
         }
        
     }
+    IEnumerator ExitGame()
+    {
+        yield return new WaitForSeconds(2);
+        if (Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        else
+        {
+            Application.Quit();
+        }
 
+    }
+        
     float getMeters(float feet)
     {
         return feet * 0.3048f;
