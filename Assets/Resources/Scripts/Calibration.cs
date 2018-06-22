@@ -98,13 +98,27 @@ public class Calibration : MonoBehaviour {
                     Destroy(prev1);
                     rightHand.gameObject.SetActive(true);
                     leftHand.gameObject.SetActive(true);
+                    StartCoroutine(ExitGame());
                     break;
             }
             
         }
        
     }
+    IEnumerator ExitGame()
+    {
+        yield return new WaitForSeconds(2);
+        if (Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        else
+        {
+            Application.Quit();
+        }
 
+    }
+        
     float getMeters(float feet)
     {
         return feet * 0.3048f;
