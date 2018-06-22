@@ -22,8 +22,4 @@ The setup is in a house room with a TV.
 
 The confirmation buttons include both Oculus touch Index Triggers as well as the space bar (in case the use can't grip very well the physician would do it for them).
 
- 
-****Important****
-Make sure the world is in pivot mode or else the child game objects cannot move freely from their parent
 
-![Alt text](https://github.com/StrokeVR/Calibration/blob/master/Assets/Resources/CaptureUnity.PNG)
