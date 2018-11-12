@@ -39,8 +39,8 @@ public class Calibration : MonoBehaviour {
 	void Update()
 	{
        
-        //if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger) || OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) || Input.GetKeyUp(KeyCode.Space))
-        if (Input.GetKeyUp (KeyCode.Space)) //Removed oculus touch buttons...could add gestures with kinect
+        if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger) || OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) || Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp (KeyCode.Space)) //put oculus touch bopttons back, but still need kinect functionality
         {
 			Debug.Log(currentStage);
 
